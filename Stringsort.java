@@ -2,7 +2,7 @@ package ashwin;
 
 import java.util.*;
 
-public class Strsort {
+public class Stringsort {
 
 	public static void main(String[] args) 
 	{
