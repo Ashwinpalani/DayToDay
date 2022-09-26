@@ -1,6 +1,6 @@
 package ashwin;
 import java.util.*;
-public class Vend 
+public class VendingMachine 
 {
 	static Scanner sc = new Scanner(System.in);
 	static String name[] = {"A1", "A2", "A3", "A4",
