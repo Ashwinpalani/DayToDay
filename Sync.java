@@ -184,4 +184,106 @@ t2.setName("Biscuit");
 }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+package ashwin;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Sync extends Multi {
+	
+synchronized void display(ArrayList a,Map<String,Integer> a1)
+{ 
+	 
+	 
+	 
+		 //System.out.println(x+" Rs."+a1.get(x));
+		 System.out.println(a+" --- "+Thread.currentThread().getName());
+		 
+	 
+	
+}
+
+
+
+}
+class Dairy extends Thread
+{
+	Sync s = new Sync();
+	
+	public void run()
+	{
+
+		 for (Object x : s.a) {
+			 if (s.sp.containsKey(x)) {
+					//System.out.println(x+" Rs."+s.sp.get(x));
+					s.display(s.a,s.sp);
+
+			 }
+		}
+					
+		
+	}
+}
+class Biscuit extends Thread
+{
+	Sync s1 = new Sync();
+	public void run()
+	{
+
+		 for (Object x : s1.a) {
+			 if (s1.sp1.containsKey(x)) {
+					//System.out.println(x+" Rs."+s1.sp1.get(x));
+					s1.display(s1.a,s1.sp1);
+
+			 }
+		}
+		
+	}
+}
+class Multi
+{
+	static ArrayList<String> a;
+	static String item;
+	static Map<String,Integer> sp;
+	static Map<String,Integer> sp1;
+public static void main(String args[])
+{
+sp = new HashMap<>();
+sp.put("Tea",10);
+sp.put("Coffee",20);
+sp.put("Boost",30);
+sp.put("horlicks",40);
+
+sp1 = new HashMap<>();
+sp1.put("50-50",15);
+sp1.put("Mariegold",20);
+sp1.put("MilkB",30);
+sp1.put("parle",40);
+
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter the number of items ");
+int n = sc.nextInt();
+System.out.println("Enter the products you want:");
+Dairy t1 = new Dairy();
+Biscuit t2 = new Biscuit();
+//Dairy t2=new Dairy();
+a = new ArrayList<>();
+for(int i=0; i<n ; i++)
+{
+	item = sc.next();
+	a.add(item);
+}
+t1.start();
+t2.start();
+
+
+}
+}
+
 
