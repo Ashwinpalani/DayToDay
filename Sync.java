@@ -6,284 +6,109 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Sync extends Multi {
-	
- synchronized static public void display(ArrayList a,Map<String,Integer> sp )
-{ 
-	 
-	 for (Object x : a) {
-		 if (sp.containsKey(x)) {
-				System.out.println(x+" Rs."+sp.get(x));
-		 }
+
+	synchronized public void display(ArrayList a, Map<String, Integer> sp) {
+
+		for (Object x : a) {
+			if (sp.containsKey(x)) {
+				System.out.println(x + " Rs." + sp.get(x));
+			}
+		}
+
 	}
-	 
-	
-}
 
 }
-class Dairy extends Thread
-{
+
+class Dairy extends Thread {
 	Sync s = new Sync();
-	public void run()
-	{
-		s.display(s.a,s.sp);
+
+	public void run() {
+		
+		s.display(s.a, s.sp);
+		System.out.println("***************Dairy items************");
 	}
 }
-class Biscuit extends Thread
-{
+
+class Biscuit extends Thread {
 	Sync s1 = new Sync();
-	public void run()
-	{
-	s1.display(s1.a,s1.sp1);	
+
+	public void run() {
+		
+		s1.display(s1.a, s1.sp1);
+		System.out.println("***************Biscuit items************");
 	}
 }
-class Multi
-{
+
+class Cakes extends Thread {
+	Sync s1 = new Sync();
+
+	public void run() {
+		
+		s1.display(s1.a, s1.sp2);
+		System.out.println("***************Cake items************");
+	}
+}
+
+class Puffs extends Thread {
+	Sync s1 = new Sync();
+
+	public void run() {
+		
+		s1.display(s1.a, s1.sp3);
+		System.out.println("***************Puff items************");
+	}
+}
+
+class Multi {
 	static ArrayList<String> a;
 	static String item;
-	static Map<String,Integer> sp;
-	static Map<String,Integer> sp1;
-public static void main(String args[])
-{
-sp = new HashMap<>();
-sp.put("Tea",10);
-sp.put("Coffee",20);
-sp.put("Boost",30);
-sp.put("horlicks",40);
+	static Map<String, Integer> sp;
+	static Map<String, Integer> sp1;
+	static Map<String, Integer> sp2;
+	static Map<String, Integer> sp3;
 
-sp1 = new HashMap<>();
-sp.put("50-50",15);
-sp.put("Mariegold",20);
-sp.put("MilkB",30);
-sp.put("parle",40);
+	public static void main(String args[]) {
+		sp = new HashMap<>();
+		sp.put("Tea", 10);
+		sp.put("Coffee", 20);
+		sp.put("Boost", 30);
+		sp.put("Horlicks", 40);
 
-Scanner sc = new Scanner(System.in);
-System.out.println("Enter the number of items ");
-int n = sc.nextInt();
-System.out.println("Enter the products you want:");
-Dairy t1 = new Dairy();
-Biscuit t2 = new Biscuit();
-a = new ArrayList<>();
-for(int i=0; i<n ; i++)
-{
-	item = sc.next();
-	a.add(item);
-}
-t1.start();
-t2.start();
+		sp1 = new HashMap<>();
+		sp1.put("50-50", 15);
+		sp1.put("Mariegold", 20);
+		sp1.put("MilkB", 30);
+		sp1.put("Parle", 40);
 
+		sp2 = new HashMap<>();
+		sp2.put("Straberry", 15);
+		sp2.put("ButterScotch", 20);
+		sp2.put("Choco", 30);
+		sp2.put("Blackforest", 40);
 
-}
-}
+		sp3 = new HashMap<>();
+		sp3.put("Eggpuff", 15);
+		sp3.put("Vegpuff", 20);
+		sp3.put("Chickenpuff", 30);
+		sp3.put("Musroompuff", 25);
 
-///////////////////////////////////////////////////////////////////
-
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
-public class Sync extends Multi {
-   Map<String,Integer> res = new HashMap<>(); 
-   Map<String,Integer> res1 = new HashMap<>();
-public Map<String, Integer> display(ArrayList<String> a)
-{ 
-for (String x : a) {
-    
-
-		 if (sp.containsKey(x)  ) {
-             //System.out.println(sp);
-				//System.out.println(x+" Rs."+sp.get(x));
-                res.put(x,sp.get(x));
-                return res;
-            }
-
-        else if(sp1.containsKey(a)){
-         System.out.println(Thread.currentThread().getName() );
-         //System.out.println(x+" Rs."+sp1.get(x));
-         res1.put(x,sp1.get(x));
-         return res1;
-        }
-	}
-return res , res1;
-
-
-}
-	 
-synchronized void dis(Map<String, Integer> result) 
-{
-for(Map.Entry<String,Integer> z : result.entrySet())
-{
-System.out.println(z.getKey()+ " " + z.getValue());
-System.out.println(Thread.currentThread().getName());
-}
-}
-
-}
-class Dairy extends Thread
-{
-    Map<String,Integer> result; 
-	Sync s = new Sync();
-	public void run()
-	{
-	result = s.display(s.a);
-    s.dis(result);
-	}
-}
-class Biscuit extends Thread
-{
-    Map<String,Integer> result; 
-	Sync s1 = new Sync();
-	public void run()
-	{
-	result = s1.display(s1.a);
-    s1.dis(result);
-    	
-	}
-}
-
-class Multi
-{
-	static ArrayList<String> a;
-    static String item;
-	static Map<String,Integer> sp;
-	static Map<String,Integer> sp1;
-public static void main(String args[])
-{
-sp = new HashMap<>();
-sp.put("Tea",10);
-sp.put("Coffee",20);
-sp.put("Boost",30);
-sp.put("horlicks",40);
-
-sp1 = new HashMap<>();
-sp1.put("50-50",15);
-sp1.put("Mariegold",20);
-sp1.put("MilkB",30);
-sp1.put("parle",40);
-System.out.println(a+" Rs."+sp.get(a));
-Scanner sc = new Scanner(System.in);
-System.out.println("Enter the number of items ");
-int n = sc.nextInt();
-System.out.println("Enter the products you want:");
-Dairy t1 = new Dairy();
-Biscuit t2 = new Biscuit();
-a = new ArrayList<>();
-for(int i=0; i<n ; i++)
-{
-	item = sc.next();
-	a.add(item);
-}
-t1.start();
-t2.start();
-t1.setName("Dairy");
-t2.setName("Biscuit");
-
-
-}
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-package ashwin;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
-public class Sync extends Multi {
-	
-synchronized void display(ArrayList a,Map<String,Integer> a1)
-{ 
-	 
-	 
-	 
-		 //System.out.println(x+" Rs."+a1.get(x));
-		 System.out.println(a+" --- "+Thread.currentThread().getName());
-		 
-	 
-	
-}
-
-
-
-}
-class Dairy extends Thread
-{
-	Sync s = new Sync();
-	
-	public void run()
-	{
-
-		 for (Object x : s.a) {
-			 if (s.sp.containsKey(x)) {
-					//System.out.println(x+" Rs."+s.sp.get(x));
-					s.display(s.a,s.sp);
-
-			 }
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter the number of items ");
+		int n = sc.nextInt();
+		System.out.println("Enter the products you want:");
+		Dairy t1 = new Dairy();
+		Biscuit t2 = new Biscuit();
+		Cakes t3 = new Cakes();
+		Puffs t4 = new Puffs();
+		a = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			item = sc.next();
+			a.add(item);
 		}
-					
-		
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+
 	}
 }
-class Biscuit extends Thread
-{
-	Sync s1 = new Sync();
-	public void run()
-	{
-
-		 for (Object x : s1.a) {
-			 if (s1.sp1.containsKey(x)) {
-					//System.out.println(x+" Rs."+s1.sp1.get(x));
-					s1.display(s1.a,s1.sp1);
-
-			 }
-		}
-		
-	}
-}
-class Multi
-{
-	static ArrayList<String> a;
-	static String item;
-	static Map<String,Integer> sp;
-	static Map<String,Integer> sp1;
-public static void main(String args[])
-{
-sp = new HashMap<>();
-sp.put("Tea",10);
-sp.put("Coffee",20);
-sp.put("Boost",30);
-sp.put("horlicks",40);
-
-sp1 = new HashMap<>();
-sp1.put("50-50",15);
-sp1.put("Mariegold",20);
-sp1.put("MilkB",30);
-sp1.put("parle",40);
-
-Scanner sc = new Scanner(System.in);
-System.out.println("Enter the number of items ");
-int n = sc.nextInt();
-System.out.println("Enter the products you want:");
-Dairy t1 = new Dairy();
-Biscuit t2 = new Biscuit();
-//Dairy t2=new Dairy();
-a = new ArrayList<>();
-for(int i=0; i<n ; i++)
-{
-	item = sc.next();
-	a.add(item);
-}
-t1.start();
-t2.start();
-
-
-}
-}
-
-
