@@ -1,0 +1,68 @@
+<html>
+	<head>
+		 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+		 
+	<script type="text/javascript" language="javascript">
+
+		 $(document).ready(function() {
+
+
+			$("#submit").click(function () {
+				var op = "id=" + $("#ids").val() + "&title=" + $("#titles").val() + "&descriptions=" + $("#descript").val() + "&published=" + $("#publish").val();	
+				alert(op);
+				var report="";
+				$.ajax({
+						type: "GET",
+						url: "http://localhost:8080/operations-0.0.1-SNAPSHOT/api/tutorials1?" + op,
+						success: function(data) {
+							alert(JSON.stringify(data));
+							for(var i in data) {
+								report = report + "<tr><td>" + data[i].id + "</td><td>" + data[i].title + "</td></tr>";
+								alert(JSON.stringify(data[i].title));
+							}
+							$("#report").html(report);
+						}
+					});
+					
+			});
+		 
+
+			$("#reset").click(function () {
+				$("#ids").val('');
+				$("#titles").val('');
+				$("#descript").val('');
+				$("#publish").val('');
+			});
+
+		 });
+
+	function myfunction() {
+		alert('Hi');
+	}
+	</script>
+	</head>
+	<body>
+		<table id="myTable" border="1">
+			<tr>
+				<td>id</td>
+				<td>title</td>
+				<td>descriptions</td>
+				<td>published</td>
+
+			</tr>
+			<tr>
+				<td><input type="text"  id="ids"> </input></td>
+				<td><input type="text"  id="titles"> </input></td>
+				<td><input type="text" id="descript" > </input></td>
+				<td><input type="text" id="publish" > </input></td>
+				
+			</tr>
+			</table>
+			<br><br>
+			<input type="reset" id="reset" label="reset" value="reset" />
+			<input type="button" id="submit" label="Submit" value="Submit" />
+			<BR><BR>
+			<table id="report" bolder="1">
+			</table>
+	</body>
+</html>
